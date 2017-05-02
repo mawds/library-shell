@@ -25,36 +25,36 @@ keypoints:
 **Loops** are key to productivity improvements through automation as they allow us to execute
 commands repetitively. Similar to wildcards and tab completion, using loops also reduces the
 amount of typing (and typing mistakes).
-Suppose we have several hundred genome data files named `basilisk.dat`, `unicorn.dat`, and so on.
+Suppose we have several hundred Etext files named `33504-0.txt`, `829-0.txt`, and so on.
 In this example,
-we'll use the `creatures` directory which only has two example files,
+we'll use the data we used in previous lessons which only has two example files,
 but the principles can be applied to many many more files at once.
 We would like to modify these files, but also save a version of the original files, naming the copies
-`original-basilisk.dat` and `original-unicorn.dat`.
+`original-33504-0.txt`, `original-829-0.txt`
 We can't use:
 
 ~~~
-$ cp *.dat original-*.dat
+$ cp *.txt original-*.txt
 ~~~
 {: .bash}
 
 because that would expand to:
 
 ~~~
-$ cp basilisk.dat unicorn.dat original-*.dat
+$ cp 33504-0.txt 829-0.txt original-*.txt
 ~~~
 {: .bash}
 
 This wouldn't back up our files, instead we get an error:
 
 ~~~
-cp: target `original-*.dat' is not a directory
+cp: target `original-*.txt' is not a directory
 ~~~
 {: .error}
 
 This problem arises when `cp` receives more than two inputs. When this happens, it
 expects the last input to be a directory where it can copy all the files it was passed.
-Since there is no directory named `original-*.dat` in the `creatures` directory we get an
+Since there is no directory named `original-*.txt` in the `creatures` directory we get an
 error.
 
 Instead, we can use a **loop**
@@ -62,7 +62,7 @@ to do some operation once for each thing in a list.
 Here's a simple example that displays the first three lines of each file in turn:
 
 ~~~
-$ for filename in basilisk.dat unicorn.dat
+$ for filename in 33504-0.txt 829-0.txt
 > do
 >    head -n 3 $filename
 > done
@@ -70,12 +70,10 @@ $ for filename in basilisk.dat unicorn.dat
 {: .bash}
 
 ~~~
-COMMON NAME: basilisk
-CLASSIFICATION: basiliscus vulgaris
-UPDATED: 1745-05-02
-COMMON NAME: unicorn
-CLASSIFICATION: equus monoceros
-UPDATED: 1738-11-24
+The Project Gutenberg EBook of Opticks, by Isaac Newton
+
+This eBook is for the use of anyone anywhere at no cost and with
+The Project Gutenberg eBook, Gulliver's Travels, by Jonathan Swift
 ~~~
 {: .output}
 
@@ -91,17 +89,17 @@ The `$` tells the shell interpreter to treat
 the **variable** as a variable name and substitute its value in its place,
 rather than treat it as text or an external command. 
 
-In this example, the list is two filenames: `basilisk.dat` and `unicorn.dat`.
+In this example, the list is two filenames: `33504-0.txt` and `829-0.txt`.
 Each time the loop iterates, it will assign a file name to the variable `filename`
 and run the `head` command.
 The first time through the loop,
-`$filename` is `basilisk.dat`. 
-The interpreter runs the command `head` on `basilisk.dat`, 
+`$filename` is `33504-0.txt`. 
+The interpreter runs the command `head` on `33504-0.txt`, 
 and the prints the 
 first three lines of `basilisk.dat`.
 For the second iteration, `$filename` becomes 
-`unicorn.dat`. This time, the shell runs `head` on `unicorn.dat`
-and prints the first three lines of `unicorn.dat`. 
+`829-0.txt`. This time, the shell runs `head` on `829-0.txt`
+and prints the first three lines of `unicorn.dat`.
 Since the list was only two items, the shell exits the `for` loop.
 
 When using variables it is also
@@ -137,7 +135,7 @@ The shell itself doesn't care what the variable is called;
 if we wrote this loop as:
 
 ~~~
-for x in basilisk.dat unicorn.dat
+for x in 33504-0.txt 829-0.txt
 do
     head -n 3 $x
 done
@@ -147,7 +145,7 @@ done
 or:
 
 ~~~
-for temperature in basilisk.dat unicorn.dat
+for temperature in 33504-0.txt 829-0.txt
 do
     head -n 3 $temperature
 done
@@ -163,7 +161,7 @@ increase the odds that the program won't do what its readers think it does.
 Here's a slightly more complicated loop:
 
 ~~~
-for filename in *.dat
+for filename in *.txt
 do
     echo $filename
     head -n 100 $filename | tail -n 20
@@ -171,7 +169,7 @@ done
 ~~~
 {: .bash}
 
-The shell starts by expanding `*.dat` to create the list of files it will process.
+The shell starts by expanding `*.txt` to create the list of files it will process.
 The **loop body**
 then executes two commands for each of those files.
 The first, `echo`, just prints its command-line parameters to standard output.
@@ -195,7 +193,7 @@ since the shell expands `$filename` to be the name of a file,
 Note that we can't write this as:
 
 ~~~
-for filename in *.dat
+for filename in *.txt
 do
     $filename
     head -n 100 $filename | tail -n 20
@@ -204,7 +202,7 @@ done
 {: .bash}
 
 because then the first time through the loop,
-when `$filename` expanded to `basilisk.dat`, the shell would try to run `basilisk.dat` as a program.
+when `$filename` expanded to `33504-0.txt`, the shell would try to run `33504-0.txt` as a program.
 Finally,
 the `head` and `tail` combination selects lines 81-100
 from whatever file is being processed
@@ -219,15 +217,15 @@ from whatever file is being processed
 > Suppose our data files are named:
 >
 > ~~~
-> red dragon.dat
-> purple unicorn.dat
+> Swift Gulliver.txt
+> Newton Opticks.txt
 > ~~~
 > {: .source}
 > 
 > We need to use
 > 
 > ~~~
-> for filename in "red dragon.dat" "purple unicorn.dat"
+> for filename in "Swift Gulliver.txt" "Newton Opticks.txt"
 > do
 >     head -n 100 "$filename" | tail -n 20
 > done
@@ -241,7 +239,7 @@ Going back to our original file copying problem,
 we can solve it using this loop:
 
 ~~~
-for filename in *.dat
+for filename in *.txt
 do
     cp $filename original-$filename
 done
@@ -250,28 +248,34 @@ done
 
 This loop runs the `cp` command once for each filename.
 The first time,
-when `$filename` expands to `basilisk.dat`,
+when `$filename` expands to `33504-0.txt`,
 the shell executes:
 
 ~~~
-cp basilisk.dat original-basilisk.dat
+cp 33504-0.txt original-33504-0.txt
 ~~~
 {: .bash}
 
 The second time, the command is:
 
 ~~~
-cp unicorn.dat original-unicorn.dat
+cp 829-0.txt original-829-0.txt
 ~~~
 {: .bash}
 
 Since the `cp` command does not normally produce any output, it's hard to check 
 that the loop is doing the correct thing. By prefixing the command with `echo` 
-it is possible to see each command as it _would_ be executed. The following diagram 
-shows what happens when the modified script is executed, and demonstrates how the 
-judicious use of `echo` is a good debugging technique.
+it is possible to see each command as it _would_ be executed:
 
-![For Loop in Action](../fig/shell_script_for_loop_flow_chart.svg)
+~~~
+for filename in *.txt
+do
+    echo $filename
+    cp $filename original-$filename
+done
+~~~
+{: .bash}
+
 
 ## Nelle's Pipeline: Processing Files
 
