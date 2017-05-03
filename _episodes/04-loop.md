@@ -412,8 +412,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 
 > ## Variables in Loops
 >
-> This exercise refers to the `data-shell/molecules` directory.
-> `ls` gives the following output:
+> This exercise refers to a directory containing the following files: 
 >
 > ~~~
 > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
@@ -629,8 +628,6 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > a file, `analyzed-$file`. A series of files is generated: `cubane.pdb`,
 > > `ethane.pdb` etc.
 > > 
-> > Try both versions for yourself to see the output! Be sure to open the 
-> > `analyzed-*.pdb` files to view their contents.
 > {: .solution}
 {: .challenge}
 
