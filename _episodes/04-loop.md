@@ -278,6 +278,7 @@ done
 
 
 ## Nelle's Pipeline: Processing Files
+## (I haven't edited beyond here)
 
 Nelle is now ready to process her data files.
 Since she's still learning how to use the shell,
