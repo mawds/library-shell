@@ -1,6 +1,6 @@
 # Library Carpentry
 
-The Library Carpentry module '[Shell Lessons for Libraries](http://data-lessons.github.io/library-shell/)' is maintained by [Belinda Weaver](https://github.com/weaverbel) and [Tim Dennis](https://github.com/jt14den).
+The Library Carpentry module '[Shell Lessons for Libraries](http://data-lessons.github.io/library-shell/)' is maintained by [Belinda Weaver](https://github.com/weaverbel) and [Tim Dennis](https://github.com/jt14den).  This version contains edited versions of the loops and shell scripts modules, taken from [Software Carpentry's Unix shell lesson](https://software-carpentry.org/lessons/), modified by [David Mawdsley](https://github.com/mawds).
 
 ## Background
 
