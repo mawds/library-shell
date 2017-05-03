@@ -26,54 +26,49 @@ a bunch of commands saved in a file is usually called a **shell script**,
 but make no mistake:
 these are actually small programs.
 
-Let's start by going back to `molecules/` and creating a new file, `middle.sh` which will
+Let's start by going back to `paine/` and creating a new file, `countamerica.sh` which will
 become our shell script:
 
 ~~~
-$ cd molecules
-$ nano middle.sh
+$ cd paine
+$ nano countamerica.sh
 ~~~
 {: .bash}
 
-The command `nano middle.sh` opens the file `middle.sh` within the text editor "nano"
+The command `nano countamerica.sh` opens the file `countamerica.sh` within the text editor "nano"
 (which runs within the shell).
 If the file does not exist, it will be created.
 We can use the text editor to directly edit the file -- we'll simply insert the following line:
 
 ~~~
-head -n 15 octane.pdb | tail -n 5
+bash countword K000934.000.txt america
 ~~~
 {: .source}
 
-This is a variation on the pipe we constructed earlier:
-it selects lines 11-15 of the file `octane.pdb`.
+This is a variation on the command we used earlier: It counts the number of times "america" appears in the file "K000934.000.txt"
 Remember, we are *not* running it as a command just yet:
-we are putting the commands in a file.
+we are putting the command in a file.
 
 Then we save the file (`Ctrl-O` in nano),
  and exit the text editor (`Ctrl-X` in nano).
-Check that the directory `molecules` now contains a file called `middle.sh`.
+Check that the directory `paine` now contains a file called `countamerica.sh`.
 
 Once we have saved the file,
 we can ask the shell to execute the commands it contains.
 Our shell is called `bash`, so we run the following command:
 
 ~~~
-$ bash middle.sh
+$ bash countamerica.sh
 ~~~
 {: .bash}
 
 ~~~
-ATOM      9  H           1      -4.502   0.681   0.785  1.00  0.00
-ATOM     10  H           1      -5.254  -0.243  -0.537  1.00  0.00
-ATOM     11  H           1      -4.357   1.252  -0.895  1.00  0.00
-ATOM     12  H           1      -3.009  -0.741  -1.467  1.00  0.00
-ATOM     13  H           1      -3.172  -1.337   0.206  1.00  0.00
+316 K000934.000.txt
 ~~~
 {: .output}
 
 Sure enough,
-our script's output is exactly what we would get if we ran that pipeline directly.
+our script's output is exactly what we would get if we ran that command directly.
 
 > ## Text vs. Whatever
 >
@@ -88,20 +83,21 @@ our script's output is exactly what we would get if we ran that pipeline directl
 > text editor, or be careful to save files as plain text.
 {: .callout}
 
-What if we want to select lines from an arbitrary file?
-We could edit `middle.sh` each time to change the filename,
+What if we want to count the number of times "america" appears in an arbitrary file?
+We could edit `countamerica.sh` each time to change the filename,
 but that would probably take longer than just retyping the command.
-Instead, let's edit `middle.sh` and make it more versatile:
+Instead, let's edit `countamerica.sh` and make it more versatile:
 
 ~~~
-$ nano middle.sh
+$ nano countamerica.sh
 ~~~
 {: .bash}
 
-Now, within "nano", replace the text `octane.pdb` with the special variable called `$1`:
+Now, within "nano", replace the text `K000934.000.txt` with the special variable called `$1`:
 
 ~~~
-head -n 15 "$1" | tail -n 5
+bash countword "$1" america
+
 ~~~
 {: .output}
 
@@ -110,32 +106,24 @@ Inside a shell script,
 We can now run our script like this:
 
 ~~~
-$ bash middle.sh octane.pdb
+$ bash countamerica.sh K000934.000.txt 
 ~~~
 {: .bash}
 
 ~~~
-ATOM      9  H           1      -4.502   0.681   0.785  1.00  0.00
-ATOM     10  H           1      -5.254  -0.243  -0.537  1.00  0.00
-ATOM     11  H           1      -4.357   1.252  -0.895  1.00  0.00
-ATOM     12  H           1      -3.009  -0.741  -1.467  1.00  0.00
-ATOM     13  H           1      -3.172  -1.337   0.206  1.00  0.00
+316 K000934.000.txt 
 ~~~
 {: .output}
 
 or on a different file like this:
 
 ~~~
-$ bash middle.sh pentane.pdb
+$ bash countamerica.sh K006500.000.txt 
 ~~~
 {: .bash}
 
 ~~~
-ATOM      9  H           1       1.324   0.350  -1.332  1.00  0.00
-ATOM     10  H           1       1.271   1.378   0.122  1.00  0.00
-ATOM     11  H           1      -0.074  -0.384   1.288  1.00  0.00
-ATOM     12  H           1      -0.048  -1.362  -0.205  1.00  0.00
-ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00
+0 K006500.000.txt 
 ~~~
 {: .output}
 
@@ -146,67 +134,20 @@ ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00
 > we surround `$1` with double-quotes.
 {: .callout}
 
-We still need to edit `middle.sh` each time we want to adjust the range of lines,
-though.
-Let's fix that by using the special variables `$2` and `$3` for the
-number of lines to be passed to `head` and `tail` respectively:
+If our script takes more than one argument, we can refer to the second, third etc. arguments as `$2`, `$3`, etc. 
+
+
+It's always a good idea to add **comments** to your scripts.  This way other people can figure out what your script does.  And *you* can figure out what it does when you come back to it several months after you wrote it.
 
 ~~~
-$ nano middle.sh
+$ nano countamerica.sh
 ~~~
 {: .bash}
 
 ~~~
-head -n "$2" "$1" | tail -n "$3"
-~~~
-{: .output}
-
-We can now run:
-
-~~~
-$ bash middle.sh pentane.pdb 15 5
-~~~
-{: .bash}
-
-~~~
-ATOM      9  H           1       1.324   0.350  -1.332  1.00  0.00
-ATOM     10  H           1       1.271   1.378   0.122  1.00  0.00
-ATOM     11  H           1      -0.074  -0.384   1.288  1.00  0.00
-ATOM     12  H           1      -0.048  -1.362  -0.205  1.00  0.00
-ATOM     13  H           1      -1.183   0.500  -1.412  1.00  0.00
-~~~
-{: .output}
-
-By changing the arguments to our command we can change our script's
-behaviour:
-
-~~~
-$ bash middle.sh pentane.pdb 20 5
-~~~
-{: .bash}
-
-~~~
-ATOM     14  H           1      -1.259   1.420   0.112  1.00  0.00
-ATOM     15  H           1      -2.608  -0.407   1.130  1.00  0.00
-ATOM     16  H           1      -2.540  -1.303  -0.404  1.00  0.00
-ATOM     17  H           1      -3.393   0.254  -0.321  1.00  0.00
-TER      18              1
-~~~
-{: .output}
-
-This works,
-but it may take the next person who reads `middle.sh` a moment to figure out what it does.
-We can improve our script by adding some **comments** at the top:
-
-~~~
-$ nano middle.sh
-~~~
-{: .bash}
-
-~~~
-# Select lines from the middle of a file.
-# Usage: bash middle.sh filename end_line num_lines
-head -n "$2" "$1" | tail -n "$3"
+# Count the number of times the word "america" appears in a file
+# The match is case insensitive
+bash countword "$1" america
 ~~~
 {: .output}
 
@@ -218,19 +159,30 @@ you should check that the comment is still accurate:
 an explanation that sends the reader in the wrong direction is worse than none at all.
 
 What if we want to process many files in a single pipeline?
-For example, if we want to sort our `.pdb` files by length, we would type:
+For example, if we want to count the number of times "america" appears in each text, and sort the output by the number of times it appears.
+
+Remember in the previous lesson that we could count the number of time "america" appeared, using the following `for` loop:
 
 ~~~
-$ wc -l *.pdb | sort -n
+$ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 ~~~
 {: .bash}
 
-because `wc -l` lists the number of lines in the files
-(recall that `wc` stands for 'word count', adding the `-l` flag means 'count lines' instead)
-and `sort -n` sorts things numerically.
-We could put this in a file,
-but then it would only ever sort a list of `.pdb` files in the current directory.
-If we want to be able to get a sorted list of other kinds of files,
+If we wish to sort the list of files by the number of times "america" appears, we pipe the output to the sort command:
+
+~~~
+$ for datafile in K*.txt; do bash ./countword $datafile "america"; done | sort -n
+~~~
+{: .bash}
+
+The `sort -n` command sorts things numerically.  
+
+> What happens if you omit the `-n` parameter on the `sort` command?
+{: .callout}
+
+We could put this in a script,
+but then it would only ever count "america" in file starting with `K` and ending `.txt` in the current directory.
+If we want to be able to count "america" in other kinds of files, 
 we need a way to get all those names into the script.
 We can't use `$1`, `$2`, and so on
 because we don't know how many files there are.
@@ -243,59 +195,38 @@ to handle the case of parameters containing spaces
 Here's an example:
 
 ~~~
-$ nano sorted.sh
+$ nano countamericas.sh
 ~~~
 {: .bash}
 
 ~~~
-# Sort filenames by their length.
-# Usage: bash sorted.sh one_or_more_filenames
-wc -l "$@" | sort -n
+# Count the number of times "america" appears in one or more filenames
+# and sort by the number of times the word appears
+# Usage: bash countamericas.sh one_or_more_filenames
+for datafile in "$@";
+    do bash ./countword $datafile "america";
+done | sort -n
 ~~~
 {: .output}
 
 ~~~
-$ bash sorted.sh *.pdb ../creatures/*.dat
+$ bash countamericas.sh K*.txt ../33504-0.txt ../829-0.txt 
 ~~~
 {: .bash}
 
 ~~~
-9 methane.pdb
-12 ethane.pdb
-15 propane.pdb
-20 cubane.pdb
-21 pentane.pdb
-30 octane.pdb
-163 ../creatures/basilisk.dat
-163 ../creatures/unicorn.dat
+0 ../33504-0.txt 
+0 K011684.000.txt 
+0 K023226.000.txt 
+...
+163 K023262.000.txt 
+166 K134413.000.txt 
+316 K000934.000.txt 
+
 ~~~
 {: .output}
 
-> ## Why Isn't It Doing Anything?
->
-> What happens if a script is supposed to process a bunch of files, but we
-> don't give it any filenames? For example, what if we type:
->
-> ~~~
-> $ bash sorted.sh
-> ~~~
-> {: .bash}
->
-> but don't say `*.dat` (or anything else)? In this case, `$@` expands to
-> nothing at all, so the pipeline inside the script is effectively:
->
-> ~~~
-> $ wc -l | sort -n
-> ~~~
-> {: .bash}
->
-> Since it doesn't have any filenames, `wc` assumes it is supposed to
-> process standard input, so it just sits there and waits for us to give
-> it some data interactively. From the outside, though, all we see is it
-> sitting there: the script doesn't appear to do anything.
-{: .callout}
-
-
+## Haven't edited below here
 Suppose we have just run a series of commands that did something useful --- for example,
 that created a graph we'd like to use in a paper.
 We'd like to be able to re-create the graph later if we need to,
