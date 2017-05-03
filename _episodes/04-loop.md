@@ -276,19 +276,33 @@ done
 ~~~
 {: .bash}
 
+## Processing many files
 
-## Nelle's Pipeline: Processing Files
-## (I haven't edited beyond here)
-
-Nelle is now ready to process her data files.
-Since she's still learning how to use the shell,
-she decides to build up the required commands in stages.
-Her first step is to make sure that she can select the right files --- remember,
-these are ones whose names end in 'A' or 'B', rather than 'Z'. Starting from her home directory, Nelle types:
+The `shell-lesson.zip` file which you downloded earlier contains a directory called `paine`.  This contains some of the works of Thomas Paine, in plain text format.  These are part of the ECCO-TCP http://www.textcreationpartnership.org/tcp-ecco/, and were downloaded from https://github.com/Anterotesis/historical-texts.   The directory also contains a program that will count the number of occurences 
+of a word within a file (ignoring case).  The filenames, and the number of times the word occured will be printed. For example, if we had a text file containing: `The cat sat on the mat`, and ran:
 
 ~~~
-$ cd north-pacific-gyre/2012-07-03
-$ for datafile in *[AB].txt
+$ bash countword cat.txt "the"
+> 2 cat.txt
+~~~
+{: .bash}
+
+In this part of the lesson we will use the countword program and some loops to look at how often certain words occur in the texts.  We will use a _script_ to make it easier to re-run and adapt this analysis. A script is a collection of commands, stored in a text file.  The `countword` program used above is actually a script.
+
+Let's use the `countword` program to count the number of times "America" occurs in each text.  We can do this using a loop.  As we're learning to use the shell, we will build up the required commands in stages.
+
+Our first step is to select the right files:
+
+~~~
+$ cd paine
+$ ls
+~~
+{: .bash}
+
+We see that all the files start 'K' and end '.txt'. We only want to process these files.
+
+~~~
+$ for datafile in K*.txt
 > do
 >     echo $datafile
 > done
@@ -296,74 +310,56 @@ $ for datafile in *[AB].txt
 {: .bash}
 
 ~~~
-NENE01729A.txt
-NENE01729B.txt
-NENE01736A.txt
+K000934.000.txt
+K006500.000.txt
+K011684.000.txt
 ...
-NENE02043A.txt
-NENE02043B.txt
+K133948.000.txt
+K134413.000.txt
 ~~~
 {: .output}
 
-Her next step is to decide
-what to call the files that the `goostats` analysis program will create.
-Prefixing each input file's name with "stats" seems simple,
-so she modifies her loop to do that:
+Our next step is to call the countword program with the appropriate parameters for each file.  It's good practice to check that the script is going to run the commands you think it is by `echo`ing the commands to the screen first:
+
 
 ~~~
-$ for datafile in *[AB].txt
-> do
->     echo $datafile stats-$datafile
+$ for datafile in K*.txt
+> do echo bash ./countword $datafile "america"
 > done
 ~~~
 {: .bash}
 
 ~~~
-NENE01729A.txt stats-NENE01729A.txt
-NENE01729B.txt stats-NENE01729B.txt
-NENE01736A.txt stats-NENE01736A.txt
+bash ./countword K000934.000.txt america
+bash ./countword K006500.000.txt america
+bash ./countword K011684.000.txt america
 ...
-NENE02043A.txt stats-NENE02043A.txt
-NENE02043B.txt stats-NENE02043B.txt
+bash ./countword K133430.000.txt america
+bash ./countword K133948.000.txt america
+bash ./countword K134413.000.txt america
 ~~~
 {: .output}
 
-She hasn't actually run `goostats` yet,
-but now she's sure she can select the right files and generate the right output filenames.
+We haven't actually run `countword` yet, but we can see the commands are correct.  Before we run the loop, let's take a brief diversion to look at how to save time and reduce the potential for errors.
+
+## Keyboard shortcuts
 
 Typing in commands over and over again is becoming tedious,
-though,
-and Nelle is worried about making mistakes,
-so instead of re-entering her loop,
-she presses the up arrow.
-In response,
+though.  In this section we look at some shortcuts that can save a lot of time, and reduce the potential for errors.
+
+If we press the up arrow, 
 the shell redisplays the whole loop on one line
 (using semi-colons to separate the pieces):
 
 ~~~
-$ for datafile in *[AB].txt; do echo $datafile stats-$datafile; done
+$ for datafile in K*.txt; do echo bash ./countword $datafile "america"; done
 ~~~
 {: .bash}
 
-Using the left arrow key,
-Nelle backs up and changes the command `echo` to `bash goostats`:
+Using the left arrow key, we can delete the `echo` command:
 
 ~~~
-$ for datafile in *[AB].txt; do bash goostats $datafile stats-$datafile; done
-~~~
-{: .bash}
-
-When she presses Enter,
-the shell runs the modified command.
-However, nothing appears to happen --- there is no output.
-After a moment, Nelle realizes that since her script doesn't print anything to the screen any longer,
-she has no idea whether it is running, much less how quickly.
-She kills the running command by typing `Ctrl-C`,
-uses up-arrow to repeat the command,
-and edits it to read:
-
-~~~
-$ for datafile in *[AB].txt; do echo $datafile; bash goostats $datafile stats-$datafile; done
+$ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 ~~~
 {: .bash}
 
@@ -373,50 +369,29 @@ $ for datafile in *[AB].txt; do echo $datafile; bash goostats $datafile stats-$d
 > and to the end using `Ctrl-E`.
 {: .callout}
 
-When she runs her program now,
-it produces one line of output every five seconds or so:
-
-~~~
-NENE01729A.txt
-NENE01729B.txt
-NENE01736A.txt
-...
-~~~
-{: .output}
-
-1518 times 5 seconds,
-divided by 60,
-tells her that her script will take about two hours to run.
-As a final check,
-she opens another terminal window,
-goes into `north-pacific-gyre/2012-07-03`,
-and uses `cat stats-NENE01729B.txt`
-to examine one of the output files.
-It looks good,
-so she decides to get some coffee and catch up on her reading.
 
 > ## Those Who Know History Can Choose to Repeat It
 >
 > Another way to repeat previous work is to use the `history` command to
 > get a list of the last few hundred commands that have been executed, and
 > then to use `!123` (where "123" is replaced by the command number) to
-> repeat one of those commands. For example, if Nelle types this:
+> repeat one of those commands. For example, if we type: 
 >
 > ~~~
 > $ history | tail -n 5
 > ~~~
 > {: .bash}
 > ~~~
->   456  ls -l NENE0*.txt
->   457  rm stats-NENE01729B.txt.txt
->   458  bash goostats NENE01729B.txt stats-NENE01729B.txt
->   459  ls -l NENE0*.txt
->   460  history
+ 2105  ls
+ 2106  for datafile in K*.txt; do echo countword $datafile "america"; done
+ 2107  for datafile in K*.txt; do echo bash ./countword $datafile "america"; done
+ 2108  for datafile in K*.txt; do bash ./countword $datafile "america"; done
+ 2109  history |tail -n 5
 > ~~~
 > {: .output}
 >
-> then she can re-run `goostats` on `NENE01729B.txt` simply by typing
-> `!458`.
+> then we can re-run `countword` on our files by typing 
+> `!2108`.
 {: .callout}
 
 > ## Other History Commands
