@@ -235,26 +235,25 @@ $ bash countamericas.sh K*.txt ../33504-0.txt ../829-0.txt
 {: .output}
 
 Suppose we have just run a series of commands that did something useful --- for example,
-that created a graph we'd like to use in a paper.
-We'd like to be able to re-create the graph later if we need to,
+to count and save the number of times that various words appeared in a series of texts.
+We'd like to be able to repeate the analysis if we need to,
 so we want to save the commands in a file.
 Instead of typing them in again
 (and potentially getting them wrong)
 we can do this:
 
 ~~~
-$ history | tail -n 5 > redo-figure-3.sh
+$ history | tail -n 4 > wordscript.sh
 ~~~
 {: .bash}
 
-The file `redo-figure-3.sh` now contains:
+The file `wordscript.sh` now contains:
 
 ~~~
-297 bash goostats -r NENE01729B.txt stats-NENE01729B.txt
-298 bash goodiff stats-NENE01729B.txt /data/validated/01729.txt > 01729-differences.txt
-299 cut -d ',' -f 2-3 01729-differences.txt > 01729-time-series.txt
-300 ygraph --format scatter --color bw --borders none 01729-time-series.txt figure-3.png
-301 history | tail -n 5 > redo-figure-3.sh
+ 2219  for datafile in K*.txt; do bash ./countword $datafile "america"; done > americacount
+ 2220  for datafile in K*.txt; do bash ./countword $datafile "rights"; done > rightscount
+ 2221  for datafile in K*.txt; do bash ./countword $datafile "liberty"; done > libertycount
+ 2222  history | tail -n 4 > wordscript.sh
 ~~~
 {: .source}
 
@@ -268,73 +267,38 @@ then saving them in a file for re-use.
 This style of work allows people to recycle
 what they discover about their data and their workflow with one call to `history`
 and a bit of editing to clean up the output
-and save it as a shell script.
-
-## Nelle's Pipeline: Creating a Script
-
-An off-hand comment from her supervisor has made Nelle realize that
-she should have provided a couple of extra parameters to `goostats` when she processed her files.
-This might have been a disaster if she had done all the analysis by hand,
-but thanks to `for` loops,
-it will only take a couple of hours to re-do.
-
-But experience has taught her that if something needs to be done twice,
-it will probably need to be done a third or fourth time as well.
-She runs the editor and writes the following:
+and save it as a shell script:
 
 ~~~
-# Calculate reduced stats for data files at J = 100 c/bp.
-for datafile in "$@"
-do
-    echo $datafile
-    bash goostats -J 100 -r $datafile stats-$datafile
-done
+for datafile in K*.txt; do bash ./countword $datafile "america"; done > americacount
+for datafile in K*.txt; do bash ./countword $datafile "rights"; done > rightscount
+for datafile in K*.txt; do bash ./countword $datafile "liberty"; done > libertycount
 ~~~
-{: .bash}
+{: .source}
 
-(The parameters `-J 100` and `-r` are the ones her supervisor said she should have used.)
-She saves this in a file called `do-stats.sh`
-so that she can now re-do the first stage of her analysis by typing:
+There is a trade-off between replicability and flexibility.  The script as written will always select all files beginning with "K" and ending ".txt".  We could modify the script to let the user pass in the files to be used with the `$@` variable:
 
 ~~~
-$ bash do-stats.sh *[AB].txt
+for datafile in $@; do bash ./countword $datafile "america"; done > americacount
+for datafile in $@; do bash ./countword $datafile "rights"; done > rightscount
+for datafile in $@; do bash ./countword $datafile "liberty"; done > libertycount
 ~~~
-{: .bash}
+{: .source}
 
-She can also do this:
-
-~~~
-$ bash do-stats.sh *[AB].txt | wc -l
-~~~
-{: .bash}
-
-so that the output is just the number of files processed
-rather than the names of the files that were processed.
-
-One thing to note about Nelle's script is that
-it lets the person running it decide what files to process.
-She could have written it as:
+One possible solution to this issue is to write a master analysis script that will call this version of `wordscript.sh` with the appropriate wildcard:
 
 ~~~
-# Calculate reduced stats for  A and Site B data files at J = 100 c/bp.
-for datafile in *[AB].txt
-do
-    echo $datafile
-    bash goostats -J 100 -r $datafile stats-$datafile
-done
-~~~
-{: .bash}
+# Analysis script for TCP texts
+# Count americas and save
+bash wordscript.sh K*.txt
+# Do other analysis here
+# ...
 
-The advantage is that this always selects the right files:
-she doesn't have to remember to exclude the 'Z' files.
-The disadvantage is that it *always* selects just those files --- she can't run it on all files
-(including the 'Z' files),
-or on the 'G' or 'H' files her colleagues in Antarctica are producing,
-without editing the script.
-If she wanted to be more adventurous,
-she could modify her script to check for command-line parameters,
-and use `*[AB].txt` if none were provided.
-Of course, this introduces another tradeoff between flexibility and complexity.
+~~~
+{: .source}
+
+All the analyses can then be run by calling `bash wordscript.sh`
+
 
 > ## Variables in Shell Scripts
 >
@@ -379,46 +343,6 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > {: .solution}
 {: .challenge}
 
-> ## List Unique Species
->
-> Leah has several hundred data files, each of which is formatted like this:
->
-> ~~~
-> 2013-11-05,deer,5
-> 2013-11-05,rabbit,22
-> 2013-11-05,raccoon,7
-> 2013-11-06,rabbit,19
-> 2013-11-06,deer,2
-> 2013-11-06,fox,1
-> 2013-11-07,rabbit,18
-> 2013-11-07,bear,1
-> ~~~
-> {: .source}
->
-> An example of this type of file is given in `data-shell/data/animals.txt`.
-> 
-> Write a shell script called `species.sh` that takes any number of
-> filenames as command-line parameters, and uses `cut`, `sort`, and
-> `uniq` to print a list of the unique species appearing in each of
-> those files separately.
->
-> > ## Solution
-> >
-> > ```
-> > # Script to find unique species in csv files where species is the second data field
-> > # This script accepts any number of file names as command line arguments
-> >
-> > # Loop over all files
-> > for file in $@ 
-> > do
-> > 	echo "Unique species in $file:"
-> > 	# Extract species names
-> > 	cut -d , -f 2 $file | sort | uniq
-> > done
-> > ```
-> > {: .source}
-> {: .solution}
-{: .challenge}
 
 > ## Find the Longest File With a Given Extension
 >
@@ -475,8 +399,7 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > ## Script Reading Comprehension
 >
 > For this question, consider the `data-shell/molecules` directory once again.
-> This contains a number of `.pdb` files in addition to any other files you
-> may have created.
+> This contains a number of `.pdb` files. 
 > Explain what a script called `example.sh` would do when run as
 > `bash example.sh *.pdb` if it contained the following lines:
 >
@@ -509,47 +432,5 @@ Of course, this introduces another tradeoff between flexibility and complexity.
 > >
 > > Script 3 would print all the arguments to the script (i.e. all the `.pdb` files),
 > > followed by `.txt`.
-> {: .solution}
-{: .challenge}
-
-> ## Debugging Scripts
->
-> Suppose you have saved the following script in a file called `do-errors.sh`
-> in Nelle's `north-pacific-gyre/2012-07-03` directory:
->
-> ~~~
-> # Calculate reduced stats for data files at J = 100 c/bp.
-> for datafile in "$@"
-> do
->     echo $datfile
->     bash goostats -J 100 -r $datafile stats-$datafile
-> done
-> ~~~
-> {: .bash}
->
-> When you run it:
->
-> ~~~
-> $ bash do-errors.sh *[AB].txt
-> ~~~
-> {: .bash}
->
-> the output is blank.
-> To figure out why, re-run the script using the `-x` option:
->
-> ~~~
-> bash -x do-errors.sh *[AB].txt
-> ~~~
-> {: .bash}
->
-> What is the output showing you?
-> Which line is responsible for the error?
->
-> > ## Solution
-> > The `-x` flag causes `bash` to run in debug mode.
-> > This prints out each command as it is run, which will help you to locate errors.
-> > In this example, we can see that `echo` isn't printing anything. We have made a typo
-> > in the loop variable name, and the variable `datfile` doesn't exist, hence returning
-> > an empty string.
 > {: .solution}
 {: .challenge}
