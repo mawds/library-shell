@@ -26,7 +26,7 @@ a bunch of commands saved in a file is usually called a **shell script**,
 but make no mistake:
 these are actually small programs.
 
-Let's start by going back to `paine/` and creating a new file, `countamerica.sh` which will
+Let's start by going back to the  `paine/`  directory and creating a new file, `countamerica.sh` which will
 become our shell script:
 
 ~~~
@@ -178,7 +178,9 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done | sort -
 The `sort -n` command sorts things numerically.  
 
 > What happens if you omit the `-n` parameter on the `sort` command?
-{: .callout}
+{: .challenge}
+> The data are sorted in character order. The `sort` command sorts by the first character of each row, followed by the second, third, etc. characters.  This means that "163" will come before "15".
+{: .solution}
 
 We could put this in a script,
 but then it would only ever count "america" in file starting with `K` and ending `.txt` in the current directory.
