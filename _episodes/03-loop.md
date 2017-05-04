@@ -278,8 +278,8 @@ done
 
 ## Processing many files
 
-The `shell-lesson.zip` file which you downloded earlier contains a directory called `paine`.  This contains some of the works of Thomas Paine, in plain text format.  These are part of the ECCO-TCP http://www.textcreationpartnership.org/tcp-ecco/, and were downloaded from https://github.com/Anterotesis/historical-texts.   The directory also contains a program that will count the number of occurences 
-of a word within a file (ignoring case).  The filenames, and the number of times the word occured will be printed. For example, if we had a text file containing: `The cat sat on the mat`, and ran:
+The `shell-lesson.zip` file which you downloded earlier contains a directory called `paine`.  This contains some of the works of Thomas Paine, in plain text format.  These are part of the [ECCO-TCP](http://www.textcreationpartnership.org/tcp-ecco/), and were downloaded from <https://github.com/Anterotesis/historical-texts>.   The directory also contains a program (strictly a shell script, which we will cover in the next lesson) that will count the number of occurences 
+of a word within a file (ignoring case).  The filenames, and the number of times the word occured will be printed. For example, if we had a text file containing: "The cat sat on the mat", and ran:
 
 ~~~
 $ bash countword cat.txt "the"
@@ -296,7 +296,7 @@ Our first step is to select the right files:
 ~~~
 $ cd paine
 $ ls
-~~
+~~~
 {: .bash}
 
 We see that all the files start 'K' and end '.txt'. We only want to process these files.
