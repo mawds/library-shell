@@ -175,12 +175,18 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done | sort -
 ~~~
 {: .bash}
 
-The `sort -n` command sorts things numerically.  
+The `-n` parameter on the `sort` command tells it to sort numerically. 
 
+
+> ## Sorting by number
+>
 > What happens if you omit the `-n` parameter on the `sort` command?
+>
+> > ## Solution
+> >
+> > The data are sorted in character order. The `sort` command sorts by the first character of each row, followed by the second, third, etc. characters.  This means that "163" will come before "15".
+> {: .solution}
 {: .challenge}
-> The data are sorted in character order. The `sort` command sorts by the first character of each row, followed by the second, third, etc. characters.  This means that "163" will come before "15".
-{: .solution}
 
 We could put this in a script,
 but then it would only ever count "america" in file starting with `K` and ending `.txt` in the current directory.
@@ -228,7 +234,6 @@ $ bash countamericas.sh K*.txt ../33504-0.txt ../829-0.txt
 ~~~
 {: .output}
 
-## Haven't edited below here
 Suppose we have just run a series of commands that did something useful --- for example,
 that created a graph we'd like to use in a paper.
 We'd like to be able to re-create the graph later if we need to,
