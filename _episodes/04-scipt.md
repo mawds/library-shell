@@ -431,6 +431,11 @@ All the analyses can then be run by calling `bash wordscript.sh`
 > > The shell expands the wildcard before passing the arguments to the `example.sh` script.
 > >
 > > Script 3 would print all the arguments to the script (i.e. all the `.txt` files),
-> > followed by `.out`.
+> > followed by `.out`, i.e:
+> > 
+> > ```
+> > Addison.txt Aikin.txt Brown.txt Cowley.txt Defoe.txt Goldsmith.txt Pope.txt Trusler.txt.out
+> > ```
+> > {: .output}
 > {: .solution}
 {: .challenge}
