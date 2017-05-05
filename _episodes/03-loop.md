@@ -430,7 +430,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > ~~~
 > {: .output}
 > 
-> Each file is an example TCP text by the given author.  The files are included in the `shell-lesson.zip` file you have already downloaded.
+> Each file is an example [Project Gutenberg](http://www.gutenberg.org)  text by the given author.  The files are included in the `shell-lesson.zip` file you have already downloaded.
 >
 > What is the output of the following code?
 >
