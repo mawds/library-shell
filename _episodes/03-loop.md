@@ -459,18 +459,18 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > the loop.
 > > Bash expands the wildcard `*.txt` within the loop body (as well as
 > > before the loop starts) to match all files ending in `.txt`
-> > and then lists them using `ls`.
-> > The expanded loop would look like this:
+> > and then lists them using `ls` The expanded loop would look like this:
 > >
-> > ```
+> > ~~~
 > > for datafile in Addison.txt Brown.txt Defoe.txt Pope.txt Aikin.txt Cowley.txt Goldsmith.txt Trusler.txt
+> > 
 > > do
 > >	ls Addison.txt Brown.txt Defoe.txt Pope.txt Aikin.txt Cowley.txt Goldsmith.txt Trusler.txt
 > > done
-> > ```
+> > ~~~
 > > {: .bash}
 > >
-> > ```
+> > ~~~ 
 > > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
 > > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
 > > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
@@ -479,14 +479,13 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
 > > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
 > > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
-> > ```
+> > ~~~
 > > {: .output}
-> >
 > > The second code block lists a different file on each loop iteration.
 > > The value of the `datafile` variable is evaluated using `$datafile`,
 > > and then listed using `ls`.
 > >
-> > ```
+> > ~~~
 > > Addison.txt
 > > Aikin.txt
 > > Brown.txt
@@ -495,7 +494,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > Goldsmith.txt
 > > Pope.txt
 > > Trusler.txt
-> > ```
+> > ~~~
 > > {: .output}
 > {: .solution}
 {: .challenge}
