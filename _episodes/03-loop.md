@@ -278,7 +278,24 @@ done
 
 ## Processing many files
 
-The `shell-lesson.zip` file which you downloded earlier contains a directory called `paine`.  This contains some of the works of Thomas Paine, in plain text format.  These are part of the [ECCO-TCP](http://www.textcreationpartnership.org/tcp-ecco/), and were downloaded from <https://github.com/Anterotesis/historical-texts>.   The directory also contains a program (strictly a shell script, which we will cover in the next lesson) that will count the number of occurences 
+The `shell-lesson.zip` file which you downloded earlier contains a directory called `paine`.  This contains some of the works of Thomas Paine, in plain text format.  These are part of the [ECCO-TCP](http://www.textcreationpartnership.org/tcp-ecco/), and were downloaded from <https://github.com/Anterotesis/historical-texts>.
+
+We'll first take a look at the contents of the directory.
+
+~~~
+$ cd paine
+$ ls
+~~~
+{: .bash}
+
+We see that all the files start 'K' and end '.txt'.
+
+
+> ## Viewing files' contents
+> We can view the contents of a file using the `less` command, followed by the file we wish to view.    Try viewing the contents of one of the texts.
+{: .callout}
+
+   The directory also contains a program (strictly a shell script--which we will cover in the next lesson) that will count the number of occurences 
 of a word within a file (ignoring case).  The filenames, and the number of times the word occured will be printed. For example, if we had a text file containing: "The cat sat on the mat", and ran:
 
 ~~~
@@ -291,15 +308,8 @@ In this part of the lesson we will use the countword program and some loops to l
 
 Let's use the `countword` program to count the number of times "America" occurs in each text.  We can do this using a loop.  As we're learning to use the shell, we will build up the required commands in stages.
 
-Our first step is to select the right files:
-
-~~~
-$ cd paine
-$ ls
-~~~
-{: .bash}
-
-We see that all the files start 'K' and end '.txt'. We only want to process these files.
+Our first step is to select the right files.
+We saw that all the files started with a  'K' and ended '.txt'. We only want to process these files.
 
 ~~~
 $ for datafile in K*.txt
