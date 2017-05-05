@@ -96,10 +96,10 @@ The first time through the loop,
 `$filename` is `33504-0.txt`. 
 The interpreter runs the command `head` on `33504-0.txt`, 
 and the prints the 
-first three lines of `basilisk.dat`.
+first three lines of `33504-0.txt`.
 For the second iteration, `$filename` becomes 
 `829-0.txt`. This time, the shell runs `head` on `829-0.txt`
-and prints the first three lines of `unicorn.dat`.
+and prints the first three lines of `829-0.txt`.
 Since the list was only two items, the shell exits the `for` loop.
 
 When using variables it is also
