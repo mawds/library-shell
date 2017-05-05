@@ -302,7 +302,7 @@ All the analyses can then be run by calling `bash wordscript.sh`
 
 > ## Variables in Shell Scripts
 >
-> In the `molecules` directory, imagine you have a shell script called `script.sh` containing the
+> In the `authors` directory, imagine you have a shell script called `script.sh` containing the
 > following commands:
 >
 > ~~~
@@ -311,20 +311,20 @@ All the analyses can then be run by calling `bash wordscript.sh`
 > ~~~
 > {: .bash}
 >
-> While you are in the `molecules` directory, you type the following command:
+> While you are in the `authors` directory, you type the following command:
 >
 > ~~~
-> bash script.sh '*.pdb' 1 1
+> bash script.sh '*.txt' 1 1
 > ~~~
 > {: .bash}
 >
 > Which of the following outputs would you expect to see?
 >
-> 1. All of the lines between the first and the last lines of each file ending in `.pdb`
->    in the `molecules` directory
-> 2. The first and the last line of each file ending in `.pdb` in the `molecules` directory
-> 3. The first and the last line of each file in the `molecules` directory
-> 4. An error because of the quotes around `*.pdb`
+> 1. All of the lines between the first and the last lines of each file ending in `.txt`
+>    in the `authors` directory
+> 2. The first and the last line of each file ending in `.txt` in the `authors` directory
+> 3. The first and the last line of each file in the `authors` directory
+> 4. An error because of the quotes around `*.txt`
 >
 > > ## Solution
 > > The correct answer is 2. 
@@ -333,12 +333,12 @@ All the analyses can then be run by calling `bash wordscript.sh`
 > > script, such that the commands run are:
 > >
 > > ```
-> > $ head -n 1 cubane.pdb ethane.pdb octane.pdb pentane.pdb propane.pdb
-> > $ tail -n 1 cubane.pdb ethane.pdb octane.pdb pentane.pdb propane.pdb
+> > $ head -n 1 Addison.txt Aikin.txt Brown.txt Cowley.txt Defoe.txt Goldsmith.txt Pope.txt Trusler.txt
+> > $ tail -n 1 Addison.txt Aikin.txt Brown.txt Cowley.txt Defoe.txt Goldsmith.txt Pope.txt Trusler.txt
 > > ```
 > > {: .bash}
-> > The shell does not expand `'*.pdb'` because it is enclosed by quote marks.
-> > As such, the first argument to the script is `'*.pdb'` which gets expanded within the
+> > The shell does not expand `'*.txt'` because it is enclosed by quote marks.
+> > As such, the first argument to the script is `'*.txt'` which gets expanded _within_ the
 > > script by `head` and `tail`.
 > {: .solution}
 {: .challenge}
@@ -352,11 +352,11 @@ All the analyses can then be run by calling `bash wordscript.sh`
 > with that extension. For example:
 >
 > ~~~
-> $ bash longest.sh /tmp/data pdb
+> $ bash longest.sh /tmp/data txt
 > ~~~
 > {: .bash}
 >
-> would print the name of the `.pdb` file in `/tmp/data` that has
+> would print the name of the `.txt` file in `/tmp/data` that has
 > the most lines.
 >
 > > ## Solution
@@ -398,10 +398,10 @@ All the analyses can then be run by calling `bash wordscript.sh`
 
 > ## Script Reading Comprehension
 >
-> For this question, consider the `data-shell/molecules` directory once again.
-> This contains a number of `.pdb` files. 
+> For this question, consider the `authors` directory once again.
+> This contains a number of `.txt` files. 
 > Explain what a script called `example.sh` would do when run as
-> `bash example.sh *.pdb` if it contained the following lines:
+> `bash example.sh *.txt` if it contained the following lines:
 >
 > ~~~
 > # Script 1
@@ -420,7 +420,7 @@ All the analyses can then be run by calling `bash wordscript.sh`
 >
 > ~~~
 > # Script 3
-> echo $@.pdb
+> echo $@.out
 > ~~~
 > {: .bash}
 >
@@ -430,7 +430,7 @@ All the analyses can then be run by calling `bash wordscript.sh`
 > > Script 2 would print the contents of the first 3 files matching the file extension.
 > > The shell expands the wildcard before passing the arguments to the `example.sh` script.
 > >
-> > Script 3 would print all the arguments to the script (i.e. all the `.pdb` files),
-> > followed by `.txt`.
+> > Script 3 would print all the arguments to the script (i.e. all the `.txt` files),
+> > followed by `.out`.
 > {: .solution}
 {: .challenge}
