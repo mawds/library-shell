@@ -504,26 +504,26 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > In the same directory, what is the effect of this loop?
 >
 > ~~~
-> for species in *.pdb
+> for author in *.txt  
 > do
->     echo $species
->     cat $species > alkanes.pdb
+>     echo $author
+>     cat $author > authors 
 > done
 > ~~~
 > {: .bash}
 >
-> 1.  Prints `cubane.pdb`, `ethane.pdb`, `methane.pdb`, `octane.pdb`, `pentane.pdb` and `propane.pdb`,
->     and the text from `propane.pdb` will be saved to a file called `alkanes.pdb`.
-> 2.  Prints `cubane.pdb`, `ethane.pdb`, and `methane.pdb`, and the text from all three files would be
->     concatenated and saved to a file called `alkanes.pdb`.
-> 3.  Prints `cubane.pdb`, `ethane.pdb`, `methane.pdb`, `octane.pdb`, and `pentane.pdb`, and the text
->     from `propane.pdb` will be saved to a file called `alkanes.pdb`.
+> 1.  Prints   `Addison.txt`, `Aikin.txt`, `Brown.txt`, `Cowley.txt`, `Defoe.txt`, `Goldsmith.txt`, `Pope.txt`, `Trusler.txt`
+>     and the text from `Trusler.txt` will be saved to a file called `authors`.
+> 2.  Prints `Addison.txt`, `Aikin.txt`, and `Brown.txt`, and the text from all three files would be
+>     concatenated and saved to a file called `authors`.
+> 3.  Prints `Addison.txt`, `Aikin.txt`, `Brown.txt`, `Cowley.txt`, `Defoe.txt`, `Goldsmith.txt`, `Pope.txt`, and the text
+>     from `Trusler.txt` will be saved to a file called `authors`.
 > 4.  None of the above.
 >
 > > ## Solution
-> > 1. The text from each file in turn gets written to the `alkanes.pdb` file.
-> > However, the file gets overwritten on each loop interation, so the final content of `alkanes.pdb`
-> > is the text from the `propane.pdb` file.
+> > 1. The text from each file in turn gets written to the `authors` file.
+> > However, the file gets overwritten on each loop interation, so the final content of `authors`
+> > is the text from the `Trusler.txt` file.
 > {: .solution}
 {: .challenge}
 
@@ -532,20 +532,18 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > In the same directory, what would be the output of the following loop?
 >
 > ~~~
-> for datafile in *.pdb
+> for datafile in *.txt
 > do
->     cat $datafile >> all.pdb
+>     cat $datafile >> all
 > done
 > ~~~
 > {: .bash}
 >
-> 1.  All of the text from `cubane.pdb`, `ethane.pdb`, `methane.pdb`, `octane.pdb`, and
->     `pentane.pdb` would be concatenated and saved to a file called `all.pdb`.
-> 2.  The text from `ethane.pdb` will be saved to a file called `all.pdb`.
-> 3.  All of the text from `cubane.pdb`, `ethane.pdb`, `methane.pdb`, `octane.pdb`, `pentane.pdb`
->     and `propane.pdb` would be concatenated and saved to a file called `all.pdb`.
-> 4.  All of the text from `cubane.pdb`, `ethane.pdb`, `methane.pdb`, `octane.pdb`, `pentane.pdb`
->     and `propane.pdb` would be printed to the screen and saved to a file called `all.pdb`.
+> 1.  All of the text from `Addison.txt`, `Aikin.txt`, `Brown.txt`, `Cowley.txt`, `Defoe.txt`, `Goldsmith.txt` and `Pope.txt`  would be concatenated and saved to a file called `all`.
+> 2.  The text from `Aikin.txt` will be saved to a file called `all`.
+> 3.  All of the text from `Addison.txt`, `Aikin.txt`, `Brown.txt`, `Cowley.txt`, `Defoe.txt`, `Goldsmith.txt`, `Pope.txt` and `Trusler.txt` would be concatenated and saved to a file called `all`.
+> 4.  All of the text from `Addison.txt`, `Aikin.txt`, `Brown.txt`, `Cowley.txt`, `Defoe.txt`, `Goldsmith.txt`, `Pope.txt` and `Trusler.txt` 
+>     would be printed to the screen and saved to a file called `all`.
 >
 > > ## Solution
 > > 3 is the correct answer. `>>` appends to a file, rather than overwriting it with the redirected
@@ -559,7 +557,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > In the same directory, what would be the output of the following loop?
 >
 > ~~~
-> for filename in c*
+> for filename in A*
 > do
 >     ls $filename 
 > done
@@ -568,8 +566,8 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 >
 > 1.  No files are listed.
 > 2.  All files are listed.
-> 3.  Only `cubane.pdb`, `octane.pdb` and `pentane.pdb` are listed.
-> 4.  Only `cubane.pdb` is listed.
+> 3.  Only `Addison.txt` is listed.
+> 4.  Only `Addison.txt` and `Aikin.txt`  are listed.
 >
 > > ## Solution
 > > 4 is the correct answer. `*` matches zero or more characters, so any file name starting with 
@@ -579,7 +577,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > How would the output differ from using this command instead?
 >
 > ~~~
-> for filename in *c*
+> for filename in *A*
 > do
 >     ls $filename 
 > done
@@ -589,12 +587,10 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > 1.  The same files would be listed.
 > 2.  All the files are listed this time.
 > 3.  No files are listed this time.
-> 4.  The files `cubane.pdb` and `octane.pdb` will be listed.
-> 5.  Only the file `octane.pdb` will be listed.
 >
 > > ## Solution
-> > 4 is the correct answer. `*` matches zero or more characters, so a file name with zero or more
-> > characters before a letter c and zero or more characters after the letter c will be matched.
+> > 1 is the correct answer. `*` matches zero or more characters, so a file name with zero or more
+> > characters before a letter A and zero or more characters after the letter A will be matched.  The match is case sensitive, so if any files had a capital A in the middle of the filename they would also be listed.
 > {: .solution}
 {: .challenge}
 
@@ -608,7 +604,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > without actually running those commands:
 >
 > ~~~
-> for file in *.pdb
+> for file in *.txt
 > do
 >   analyze $file > analyzed-$file
 > done
@@ -620,7 +616,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 >
 > ~~~
 > # Version 1
-> for file in *.pdb
+> for file in *.txt
 > do
 >   echo analyze $file > analyzed-$file
 > done
@@ -629,7 +625,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 >
 > ~~~
 > # Version 2
-> for file in *.pdb
+> for file in *.txt
 > do
 >   echo "analyze $file > analyzed-$file"
 > done
@@ -642,8 +638,8 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > loop variable name because we have prefixed it with a dollar sign.
 > >
 > > The first version redirects the output from the command `echo analyze $file` to
-> > a file, `analyzed-$file`. A series of files is generated: `cubane.pdb`,
-> > `ethane.pdb` etc.
+> > a file, `analyzed-$file`. A series of files is generated: `Addison.txt`,
+> > `Aikin.txt` etc.
 > > 
 > {: .solution}
 {: .challenge}
@@ -651,25 +647,25 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > ## Nested Loops
 >
 > Suppose we want to set up up a directory structure to organize
-> some experiments measuring reaction rate constants with different compounds
-> *and* different temperatures.  What would be the
+> several analyses; "context", "frequencies", "style"; for *each* author's text.
+>  What would be the
 > result of the following code:
 >
 > ~~~
-> for species in cubane ethane methane
+> for author in Addison Aikin Brown Cowley Defoe Goldsmith Pope Trusler
 > do
->     for temperature in 25 30 37 40
+>     for analysis in context frequencies style 
 >     do
->         mkdir $species-$temperature
+>         mkdir $author-$analysis
 >     done
 > done
 > ~~~
 > {: .bash}
 >
 > > ## Solution
-> > We have a nested loop, i.e. contained within another loop, so for each species
+> > We have a nested loop, i.e. contained within another loop, so for each author
 > > in the outer loop, the inner loop (the nested loop) iterates over the list of
-> > temperatures, and creates a new directory for each combination.
+> > analysis, and creates a new directory for each combination.
 > >
 > > Try running the code for yourself to see which directories are created!
 > {: .solution}
