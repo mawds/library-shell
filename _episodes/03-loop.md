@@ -422,19 +422,22 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 
 > ## Variables in Loops
 >
-> This exercise refers to a directory containing the following files: 
+> This exercise refers to the `authors` directory, which contains the following files: 
 >
 > ~~~
-> cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
+> Addison.txt  Brown.txt   Defoe.txt      Pope.txt
+> Aikin.txt    Cowley.txt  Goldsmith.txt  Trusler.txt
 > ~~~
 > {: .output}
+> 
+> Each file is an example TCP text by the given author.  The files are included in the `shell-lesson.zip` file you have already downloaded.
 >
 > What is the output of the following code?
 >
 > ~~~
-> for datafile in *.pdb
+> for datafile in *.txt
 > do
->     ls *.pdb
+>     ls *.txt
 > done
 > ~~~
 > {: .bash}
@@ -442,7 +445,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > Now, what is the output of the following code?
 >
 > ~~~
-> for datafile in *.pdb
+> for datafile in *.txt
 > do
 >	ls $datafile
 > done
@@ -454,25 +457,28 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > ## Solution
 > > The first code block gives the same output on each iteration through
 > > the loop.
-> > Bash expands the wildcard `*.pdb` within the loop body (as well as
-> > before the loop starts) to match all files ending in `.pdb`
+> > Bash expands the wildcard `*.txt` within the loop body (as well as
+> > before the loop starts) to match all files ending in `.txt`
 > > and then lists them using `ls`.
 > > The expanded loop would look like this:
+> >
 > > ```
-> > for datafile in cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
+> > for datafile in Addison.txt Brown.txt Defoe.txt Pope.txt Aikin.txt Cowley.txt Goldsmith.txt Trusler.txt
 > > do
-> >	ls cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
+> >	ls Addison.txt Brown.txt Defoe.txt Pope.txt Aikin.txt Cowley.txt Goldsmith.txt Trusler.txt
 > > done
 > > ```
 > > {: .bash}
 > >
 > > ```
-> > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
-> > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
-> > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
-> > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
-> > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
-> > cubane.pdb  ethane.pdb  methane.pdb  octane.pdb  pentane.pdb  propane.pdb
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
+> > Addison.txt  Aikin.txt  Brown.txt  Cowley.txt  Defoe.txt  Goldsmith.txt  Pope.txt  Trusler.txt
 > > ```
 > > {: .output}
 > >
@@ -481,12 +487,14 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > and then listed using `ls`.
 > >
 > > ```
-> > cubane.pdb
-> > ethane.pdb
-> > methane.pdb
-> > octane.pdb
-> > pentane.pdb
-> > propane.pdb
+> > Addison.txt
+> > Aikin.txt
+> > Brown.txt
+> > Cowley.txt
+> > Defoe.txt
+> > Goldsmith.txt
+> > Pope.txt
+> > Trusler.txt
 > > ```
 > > {: .output}
 > {: .solution}
