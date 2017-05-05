@@ -184,7 +184,7 @@ The `-n` parameter on the `sort` command tells it to sort numerically.
 >
 > > ## Solution
 > >
-> > The data are sorted in character order. The `sort` command sorts by the first character of each row, followed by the second, third, etc. characters.  This means that "163" will come before "15".
+> > The data are sorted in character order. The `sort` command sorts by the first character of each row, followed by the second, third, etc. characters.  This means that, for example,  "163" will come before "15".
 > {: .solution}
 {: .challenge}
 
