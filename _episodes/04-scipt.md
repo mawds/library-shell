@@ -110,6 +110,12 @@ Inside a shell script,
 `$1` means "the first filename (or other parameter) on the command line".
 We can now run our script like this:
 
+> ## Double-Quotes Around Arguments
+>
+> We surround the `$1` with double quotes for the same reason that we put the loop variable inside double-quotes; 
+> in case the filename happens to contain any spaces.
+{: .callout}
+
 ~~~
 $ bash countamerica.sh K000934.000.txt 
 ~~~
@@ -132,12 +138,6 @@ $ bash countamerica.sh K006500.000.txt
 ~~~
 {: .output}
 
-> ## Double-Quotes Around Arguments
->
-> For the same reason that we put the loop variable inside double-quotes,
-> in case the filename happens to contain any spaces,
-> we surround `$1` with double-quotes.
-{: .callout}
 
 If our script takes more than one argument, we can refer to the second, third etc. arguments as `$2`, `$3`, etc. 
 
