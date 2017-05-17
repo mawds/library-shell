@@ -638,8 +638,8 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 > > loop variable name because we have prefixed it with a dollar sign.
 > >
 > > The first version redirects the output from the command `echo analyze $file` to
-> > a file, `analyzed-$file`. A series of files is generated: `Addison.txt`,
-> > `Aikin.txt` etc.
+> > a file, `analyzed-$file`. A series of files is generated: `analyzed-Addison.txt`,
+> > `analyzed-Aikin.txt` etc.
 > > 
 > {: .solution}
 {: .challenge}
