@@ -26,6 +26,13 @@ a bunch of commands saved in a file is usually called a **shell script**,
 but make no mistake:
 these are actually small programs.
 
+~~~
+## Which editor?
+If you are using a Linux machine, or a Mac, your machine will almost certainly have the `nano` editor installed.   This isn't installed as part of Git Bash, so we will use Windows' built in `notepad` editor instead.  In the examples that follow below substitute `notepad` for `nano`.  (If attempting to run notepad gives an error, try using `winpty notepad` instead).
+
+~~~
+{.callout}
+
 Let's start by going back to the  `paine/`  directory and creating a new file, `countamerica.sh` which will
 become our shell script:
 
