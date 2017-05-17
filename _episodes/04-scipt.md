@@ -363,7 +363,7 @@ All the analyses can then be run by calling `bash wordscript.sh`
 > {: .bash}
 >
 > would print the name of the `.txt` file in `/tmp/data` that has
-> the most lines.
+> the most lines. (When you're developing this script, note that the TCP texts in the `paine` directory don't contain _any_ new-lines, so your script won't work properly on this folder).
 >
 > > ## Solution
 > >
