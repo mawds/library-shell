@@ -571,7 +571,7 @@ $ for datafile in K*.txt; do bash ./countword $datafile "america"; done
 >
 > > ## Solution
 > > 4 is the correct answer. `*` matches zero or more characters, so any file name starting with 
-> > the letter c, followed by zero or more other characters will be matched.
+> > the letter A, followed by zero or more other characters will be matched.
 > {: .solution}
 >
 > How would the output differ from using this command instead?
