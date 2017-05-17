@@ -264,7 +264,7 @@ The file `wordscript.sh` now contains:
 
 After a moment's work in an editor to remove the serial numbers on the commands,
 and to remove the final line where we called the `history` command,
-we have a completely accurate record of how we created that figure.
+we have a completely accurate record of how we ran the analyses.
 
 In practice, most people develop shell scripts by running commands at the shell prompt a few times
 to make sure they're doing the right thing,
@@ -294,7 +294,8 @@ One possible solution to this issue is to write a master analysis script that wi
 
 ~~~
 # Analysis script for TCP texts
-# Count americas and save
+# Get counts of "america", "rights" and "liberty" and save
+# to corresponding files
 bash wordscript.sh K*.txt
 # Do other analysis here
 # ...
