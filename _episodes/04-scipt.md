@@ -22,14 +22,14 @@ We are finally ready to see what makes the shell such a powerful programming env
 We are going to take the commands we repeat frequently and save them in files
 so that we can re-run all those operations again later by typing a single command.
 For historical reasons,
-a bunch of commands saved in a file is usually called a **shell script**,
+a bunch of commands saved in a text file is usually called a **shell script**,
 but make no mistake:
-these are actually small programs.
+these are actually small programs, which we can create and edit with a text editor.
 
 > ## Which editor?
 > If you are using a Linux machine, or a Mac, your machine will almost certainly have the `nano` editor installed.   This isn't installed as part of Git Bash, so we will use Windows' built in `notepad` editor instead.  In the examples that follow below substitute `notepad` for `nano`.  (If attempting to run notepad gives an error, try using `winpty notepad` instead).
 > 
-{.callout}
+{: .callout}
 
 > ## Text vs. Whatever
 >
